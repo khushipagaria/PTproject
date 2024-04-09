@@ -1,0 +1,27 @@
+<!-- Display paintings -->
+<div class="container">
+    <h1>Welcome to our Art Gallery</h1>
+    <?php
+    include 'db_connection.php'; // Include the file with your database connection details
+
+    // Query to retrieve paintings data
+    $sql = "SELECT * FROM paintings";
+    $result = $conn->query($sql);
+
+    // Check if there are any paintings
+    if ($result->num_rows > 0) {
+        // Output data of each row
+        while ($row = $result->fetch_assoc()) {
+            echo "<div class='artwork'>";
+            echo "<img src='{$row['image_path']}' alt='{$row['title']}'>";
+            echo "<h2>{$row['title']}</h2>";
+            echo "<p>{$row['description']}</p>";
+            echo "</div>";
+        }
+    } else {
+        echo "No paintings found.";
+    }
+
+    $conn->close();
+    ?>
+</div>
